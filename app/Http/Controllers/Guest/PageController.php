@@ -14,7 +14,7 @@ public function index(){
 
     $cars = Car::all();
 
-    return view('home', compact('cars'));
+    return view('cars.index', compact('cars'));
 
 
 }
