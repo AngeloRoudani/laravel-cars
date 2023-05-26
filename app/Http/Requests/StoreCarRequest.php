@@ -33,5 +33,20 @@ class StoreCarRequest extends FormRequest
         ];
     }
 
+    public function messages()
+
+    {
+      return[
+    'brand.required'=>'Il brend è richiesto',
+    'brand.max'=>'Deve essere massimo 50 charatteri',
+    'model.required' =>'Il model è richiesto',
+    'model.max'=> 'Deve essere massimo 30 charatteri',
+    'price.required'=>'Il prezzo deve essere richiestto',
+    'price.max'=>'Deve essere massimo 10 charatteri',
+    'cc.required' =>'Il cc è richiesto',
+    'year_release.required' =>'Il year_release è richiesto',
+   ];
+
+}
 
 }

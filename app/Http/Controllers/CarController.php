@@ -44,7 +44,7 @@ class CarController extends Controller
         $newCar->fill($form_data);
         $newCar->save();
 
-        return redirect()->route('cars.show', ['car'=>$newCar->id]);
+        return redirect()->route('cars.show', ['car'=>$newCar->id])->with('status', 'Car creato con successo!');
     }
 
     /**
@@ -84,7 +84,7 @@ class CarController extends Controller
         $form_data = $request->validated();
 
         $cars->update($form_data);
-        return redirect()->route('cars.show', ['car'=>$cars->id]);
+        return redirect()->route('cars.show', ['car'=>$cars->id])->with('status', 'Car modificata con successo!');
 
     }
 
@@ -97,8 +97,10 @@ class CarController extends Controller
     public function destroy(Car $car)
     {
 
+
         $car->delete();
         return redirect()->route('cars.index');
         
+
     }
 }
