@@ -1,13 +1,10 @@
 <?php
 
 namespace Database\Seeders;
-
-use Faker\Generator as Faker;
 use App\Models\Car;
-
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
+use Faker\Generator as Faker;
 class CarsTableSeeder extends Seeder
 {
     /**
@@ -17,7 +14,7 @@ class CarsTableSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-        for($i=0; $i<20; $i++){
+        for($i = 0; $i < 20; $i++){
             $car = new Car();
             $car->brand = $faker->company();
             $car->model = $faker->randomElement(['clio', 'punto', 'smart', 'r8']);

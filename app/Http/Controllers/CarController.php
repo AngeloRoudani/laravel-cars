@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreCarRequest;
+use App\Http\Requests\UpdateCarRequest;
 use App\Models\Car;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CarController extends Controller
 {
@@ -15,7 +17,7 @@ class CarController extends Controller
     public function index()
     {
         $cars = Car::all();
-        return view('cars.index', compact('cars'));
+        return view('cars.index',compact('cars'));
     }
 
     /**
@@ -25,7 +27,7 @@ class CarController extends Controller
      */
     public function create()
     {
-        //
+        return view('cars.create');
     }
 
     /**
@@ -34,9 +36,15 @@ class CarController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCarRequest $request)
     {
-        //
+
+        $form_data = $request->validated();
+        $newCar = new Car();
+        $newCar->fill($form_data);
+        $newCar->save();
+
+        return redirect()->route('cars.show', ['car'=>$newCar->id]);
     }
 
     /**
@@ -47,7 +55,8 @@ class CarController extends Controller
      */
     public function show($id)
     {
-        //
+        $cars = Car::findOrFail($id);
+        return view('cars.show', compact('cars'));
     }
 
     /**
@@ -58,7 +67,8 @@ class CarController extends Controller
      */
     public function edit($id)
     {
-        //
+        $cars = Car::findOrFail($id);
+        return view('cars.edit', compact('cars'));
     }
 
     /**
@@ -68,9 +78,14 @@ class CarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateCarRequest $request, $id)
     {
-        //
+        $cars = Car::findOrFail($id);
+        $form_data = $request->validated();
+
+        $cars->update($form_data);
+        return redirect()->route('cars.show', ['car'=>$cars->id]);
+
     }
 
     /**
@@ -81,6 +96,6 @@ class CarController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
     }
 }
