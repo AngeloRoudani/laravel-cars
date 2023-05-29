@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCarRequest;
 use App\Http\Requests\UpdateCarRequest;
 use App\Models\Car;
+use App\Models\Optional;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -17,6 +18,7 @@ class CarController extends Controller
     public function index()
     {
         $cars = Car::all();
+        
         return view('cars.index',compact('cars'));
     }
 
@@ -26,8 +28,8 @@ class CarController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return view('cars.create');
+    {   $optionals = Optional::all();
+        return view('cars.create',compact('optionals'));
     }
 
     /**
@@ -43,6 +45,10 @@ class CarController extends Controller
         $newCar = new Car();
         $newCar->fill($form_data);
         $newCar->save();
+
+        if($request->has('optionals')){
+            $newCar->optionals()->attach($request->optionals);
+        }
 
         return redirect()->route('cars.show', ['car'=>$newCar->id])->with('status', 'Car creato con successo!');
     }

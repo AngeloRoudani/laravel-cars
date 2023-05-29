@@ -17,4 +17,8 @@ class Car extends Model
         'year_release'
 
     ];
+
+    public function optionals(){
+        return $this->belongsToMany(Optional::class);
+    }
 }

@@ -27,8 +27,8 @@
                     <td>{{$car->cc}}</td>
                     <td>{{$car->year_release}}</td>
                     <td class="d-flex">
-                        <a class="btn btn-primary me-2" href="{{route('cars.show', ['car' => $car->id])}}">Vedi</a>
-                        <a class="btn btn-warning me-2" href="{{route('cars.edit', ['car' => $car->id])}}">Modifica</a>
+                        <a class="btn btn-primary my-2 me-2 " href="{{route('cars.show', ['car' => $car->id])}}">Vedi</a>
+                        <a class="btn btn-warning my-2 me-2" href="{{route('cars.edit', ['car' => $car->id])}}">Modifica</a>
                         <form   class="form_delete_car my-2"  action="{{route('cars.destroy',['car' => $car->id])}}" method="POST">
                             @csrf
                             @method('DELETE')

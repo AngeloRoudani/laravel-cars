@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Guest\PageController;
 use App\Http\Controllers\CarController;
+use App\Http\Controllers\OptionalController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -19,3 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [PageController::class, 'index'])->name('home');
 
 Route::resource('cars', CarController::class);
+
+Route::resource('optionals', OptionalController::class)->parameters([
+    'optionals' => 'optional:slug' 
+]);

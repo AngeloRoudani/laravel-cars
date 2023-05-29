@@ -29,6 +29,7 @@ class updateCarRequest extends FormRequest
             'price' => 'required|max:10',
             'cc' => 'required',
             'year_release' => 'required',
+            'optionals' => 'exists:optionals,id'
 
         ];
     }

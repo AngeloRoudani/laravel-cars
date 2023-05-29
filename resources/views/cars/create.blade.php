@@ -58,6 +58,18 @@
                 </div>
             @enderror
     </div>
+    <div class="btn-group" role="group">
+        @foreach ($optionals as $optional)
+        <input type="checkbox" class="btn-check"
+                @if (in_array($optional->id , old('optionals', []))) checked @endif
+                id="tech_{{$optional->name}}" name="optionals[]" 
+                value="{{$optional->id}}" autocomplete="off">
+        <label class="btn btn-outline-primary" for="tech_{{$optional->name}}">{{$optional->name}}</label>
+        @endforeach
+    </div>
+    @error('optionals')
+            <div class="alert alert-danger">{{ $message }}</div>
+    @enderror
 
 
     <button type="submit" class="btn btn-primary">Salva</button>
