@@ -14,7 +14,8 @@ class Car extends Model
         'model',
         'price',
         'cc',
-        'year_release'
+        'year_release',
+        'optional_id'
 
     ];
 

@@ -4,9 +4,14 @@
 
 @section('content')
 
-<h1>{{$cars->model}}</h1>
-<h1>{{$cars->brand}}</h1>
-<h2>{{$cars->cc}}</h2>
+<h1>{{$car->model}}</h1>
+<h1>{{$car->brand}}</h1>
+<h2>{{$car->cc}}</h2>
+@foreach ($car->optionals as $optional )
+
+<h3>{{$optional->name . '-'}}</h3>
+
+@endforeach
 
 <a href="{{route('cars.index')}}" class="btn btn-secondary">Torna alla lista</a>
 

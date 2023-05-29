@@ -6,6 +6,7 @@ use App\Http\Requests\UpdateCarRequest;
 use App\Models\Car;
 use App\Models\Optional;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 
 class CarController extends Controller
@@ -18,7 +19,7 @@ class CarController extends Controller
     public function index()
     {
         $cars = Car::all();
-        
+
         return view('cars.index',compact('cars'));
     }
 
@@ -59,10 +60,9 @@ class CarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show( Car $car)
     {
-        $cars = Car::findOrFail($id);
-        return view('cars.show', compact('cars'));
+        return view('cars.show', compact('car'));
     }
 
     /**
@@ -71,10 +71,11 @@ class CarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Car $car)
     {
-        $cars = Car::findOrFail($id);
-        return view('cars.edit', compact('cars'));
+
+        $optionals = Optional::all();
+        return view('cars.edit', compact('car', 'optionals'));
     }
 
     /**
@@ -84,13 +85,17 @@ class CarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCarRequest $request, $id)
+    public function update(UpdateCarRequest $request, Car $car)
     {
-        $cars = Car::findOrFail($id);
-        $form_data = $request->validated();
 
-        $cars->update($form_data);
-        return redirect()->route('cars.show', ['car'=>$cars->id])->with('status', 'Car modificata con successo!');
+        $form_data = $request->validated();
+        $car->optionals()->sync($request->optionals);
+
+        $car->update($form_data);
+
+
+
+        return redirect()->route('cars.show', ['car'=>$car->id])->with('status', 'Car modificata con successo!');
 
     }
 
@@ -106,7 +111,7 @@ class CarController extends Controller
 
         $car->delete();
         return redirect()->route('cars.index');
-        
+
 
     }
 }
